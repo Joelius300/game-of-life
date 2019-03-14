@@ -7,6 +7,10 @@ import org.junit.Test;
 
 public class TestGameOfLife {
     public boolean[][] fullGrid;
+    public boolean[][] in1;
+    public boolean[][] expected1;
+    public boolean[][] in2;
+    public boolean[][] expected2;
     public GameOfLife gol;
 
     @Before
@@ -19,6 +23,34 @@ public class TestGameOfLife {
             {true, true, true},
             {true, true, true}
         };
+
+        in1 = new boolean[][]
+                {
+                        {false, true, false},
+                        {true, true, false},
+                        {true, false, true}
+                };
+
+        expected1 = new boolean[][]
+                {
+                        {true, true, false},
+                        {true, false, true},
+                        {true, false, false}
+                };
+
+        in2 = new boolean[][]
+                {
+                        {false, false, false},
+                        {true, true, true},
+                        {false, false, false}
+                };
+
+        expected2 = new boolean[][]
+                {
+                        {false, true, false},
+                        {false, true, false},
+                        {false, true, false}
+                };
     }
 
     @Test
@@ -81,5 +113,25 @@ public class TestGameOfLife {
         }
 
         return out;
+    }
+
+    @Test
+    public void testGeneration1(){
+        boolean[][] actual = gol.getNextGen(in1);
+        boolean[][] expected = expected1;
+        gol.show(in1);
+        gol.show(actual);
+        gol.show(expected);
+        Assert.assertArrayEquals(actual, expected);
+    }
+
+    @Test
+    public void testGeneration2(){
+        boolean[][] actual = gol.getNextGen(in2);
+        boolean[][] expected = expected2;
+        gol.show(in2);
+        gol.show(actual);
+        gol.show(expected);
+        Assert.assertArrayEquals(actual, expected);
     }
 }

@@ -16,7 +16,7 @@ public class Main {
     public static boolean[][] world;
 
     public static void main(String[] args){
-        world = game.init(10, 15, 0.25f);
+        world = game.init(50, 100, 0.1f);
         while(true){
             cycle();
         }
@@ -28,7 +28,7 @@ public class Main {
 
         //System.out.println("---------------------------------------------------------------------------------------");
         try {
-            TimeUnit.MILLISECONDS.sleep(2000);
+            TimeUnit.MILLISECONDS.sleep(250);
         } catch (InterruptedException e) {
 
         }

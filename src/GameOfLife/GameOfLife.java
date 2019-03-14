@@ -63,7 +63,7 @@ public class GameOfLife {
                         newWorld[y][x] = true;
                     }
                 }else{
-                    if(livingAround == 3 || livingAround == 2){
+                    if(livingAround == 3){
                         newWorld[y][x] = true;
                     }else{
                         newWorld[y][x] = false;
@@ -79,9 +79,9 @@ public class GameOfLife {
         int out = 0;
         for (int y = yNow-1; y <= yNow+1; y++) {
             for (int x = xNow-1; x <= xNow+1; x++) {
-                boolean isCellWeReTalkinAbout = y == yNow && x == y;
+//                boolean isCellWeReTalkinAbout = y == yNow && x == y;
                 boolean isInOfBound = y >= 0 && y < world.length && x >= 0 && x < world[y].length;
-                if(!isInOfBound || isCellWeReTalkinAbout){
+                if(!isInOfBound){
                     continue;
                 }
 
@@ -89,6 +89,10 @@ public class GameOfLife {
                     out++;
                 }
             }
+        }
+
+        if(world[yNow][xNow]){
+            out--;
         }
 
         return out;
