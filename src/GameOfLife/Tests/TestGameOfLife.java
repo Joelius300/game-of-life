@@ -11,6 +11,9 @@ public class TestGameOfLife {
     public boolean[][] expected1;
     public boolean[][] in2;
     public boolean[][] expected2;
+    public boolean[][] in3;
+    public boolean[][] expected3;
+    public boolean[][] expected4;
     public GameOfLife gol;
 
     @Before
@@ -51,6 +54,27 @@ public class TestGameOfLife {
                         {false, true, false},
                         {false, true, false}
                 };
+
+        in3 = new boolean[][]
+                {
+                        {false, false, true},
+                        {false, true, true},
+                        {false, true, false}
+                };
+
+        expected3 = new boolean[][]
+                {
+                        {false, true, true},
+                        {false, true, true},
+                        {false, true, true}
+                };
+
+        expected4 = new boolean[][]
+                {
+                        {true, false, true},
+                        {false, false, false},
+                        {true, false, true}
+                };
     }
 
     @Test
@@ -84,7 +108,7 @@ public class TestGameOfLife {
     @Test
     public void testInit2(){
         int actual = getAmountAliveCells(gol.init(100, 400, 0.1f));
-        int expected = 400;
+        int expected = 4000;
         Assert.assertEquals(actual, expected);
     }
 
@@ -125,6 +149,9 @@ public class TestGameOfLife {
         Assert.assertArrayEquals(actual, expected);
     }
 
+    //    jede lebendige Zelle, die weniger als zwei lebendige Nachbarn hat, stirbt an Einsamkeit
+    //    jede lebendige Zelle mit zwei oder drei Nachbarn fühlt sich wohl und lebt weiter
+    //    jede tote Zelle mit genau drei lebendigen Nachbarn wird wieder zum Leben erweckt
     @Test
     public void testGeneration2(){
         boolean[][] actual = gol.getNextGen(in2);
@@ -132,6 +159,25 @@ public class TestGameOfLife {
         gol.show(in2);
         gol.show(actual);
         gol.show(expected);
+        Assert.assertArrayEquals(actual, expected);
+    }
+
+    //    jede tote Zelle mit genau drei lebendigen Nachbarn wird wieder zum Leben erweckt
+    @Test
+    public void testGeneration3(){
+        boolean[][] actual = gol.getNextGen(in3);
+        boolean[][] expected = expected3;
+        gol.show(in3);
+        gol.show(actual);
+        gol.show(expected);
+        Assert.assertArrayEquals(actual, expected);
+    }
+
+    //    jede lebendige Zelle mit mehr als drei lebendigen Nachbarn stirbt an Überbevölkerung
+    @Test
+    public void testGeneration4(){
+        boolean[][] actual = gol.getNextGen(fullGrid);
+        boolean[][] expected = expected4;
         Assert.assertArrayEquals(actual, expected);
     }
 }
